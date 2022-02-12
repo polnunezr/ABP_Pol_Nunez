@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Classes\Cicle;
 use Illuminate\Http\Request;
+
 
 class CicleController extends Controller
 {
     //Mètode index
     public function index(Request $request)
     {
+
         $value = $request->session()->get('cicle');
 
-        return view('resources.view.cicles.index', $value);
+        return view('index', $value);
     }
     //Mètode create
     public function create()
     {
-        return view('resources.view.cicles.create');
+        return view('cicles.create');
     }
     //Mètode store
     public function store(Request $request)
@@ -27,10 +30,10 @@ class CicleController extends Controller
         $nom = $request->input('nom');
         $value = $request->session()->get('cicle');
         $cicle = new Cicle($id,$sigla,$nom);
-        array_push($value,$cicle);
+        $value[] = $cicle;
         // Session::put('cicle', $value);
         $request->session()->put('cicle', $value);
-        return view('resources.view.cicles.index');
+        return view('cicles.index');
         # code...
     }
     //Mètode store
