@@ -27,7 +27,7 @@ class CicleController extends Controller
     //Mètode create
     public function create()
     {
-        return view('cicles.create');
+        return view('cicles.create.index');
     }
     //Mètode store
     public function store(Request $request)
