@@ -27,7 +27,7 @@
         <form action="{{action([App\Http\Controllers\CicleController::class,'destroy'],['id' => $key])}}", method="POST">
                 @csrf
                 @method('delete')
-                <button  type="submit" class="btn btn-danger"><i class="bi bi-trash">Esborrar</i></button>
+                <button  type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Esborrar</button>
         </form>
         </td>
       </tr>
