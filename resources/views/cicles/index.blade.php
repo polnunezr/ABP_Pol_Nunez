@@ -1,12 +1,11 @@
-<?php
-if($value != null) {
-?>
+
 
 @extends('layouts.index')
 
 @section('titol','Cicles')
 
 @section('name')
+@if (count($value) > 0)
 <table class="table table-hover">
     <thead>
       <tr>
@@ -17,29 +16,31 @@ if($value != null) {
     </thead>
     <tbody>
 
- <form action="{{action([App\Http\Controllers\CicleController::class,'destroy'],{{$ciclo -> getId()}})}}", method="POST">
-    @foreach ($value as $ciclo)
+
+    @foreach ($value as $key => $ciclo)
       <tr>
         <th scope="row">{{$ciclo -> getId()}}  </th>
         <td> {{$ciclo-> getSigles()}}</td>
         <td>  {{$ciclo -> getNom() }}</td>
-        <td><button type="button" type="submit" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i>Esborrar</button>
-        </td>
 
+        <td>
+        <form action="{{action([App\Http\Controllers\CicleController::class,'destroy'],['id' => $key])}}", method="POST">
+                @csrf
+                @method('delete')
+                <button  type="submit" class="btn btn-danger"><i class="bi bi-trash">Esborrar</i></button>
+        </form>
+        </td>
       </tr>
       @endforeach
     </tbody>
 </table>
-</form>
-@endsection
-<?php
-} else {
-?>
-@section('name')
-<div class="alert alert-primary" role="alert">
+
+@else
+<div class="alert alert-primary mt-2" role="alert">
     Encara no hi ha cap cicle donat d'alta.
   </div>
+@endif
+
+
 @endsection
-<?php
-}
-?>
+

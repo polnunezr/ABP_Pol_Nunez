@@ -10,12 +10,19 @@ use Illuminate\Http\Request;
 class CicleController extends Controller
 {
     //Mètode index
-    public function index(Request $request)
+    public function index(Request $request,)
     {
 
-        $value = $request->session()->get('cicle');
-
-        return view('index', $value);
+        if ($request->session()->has('cicle')) {
+            $value = $request->session()->get('cicle');
+        }
+        else {
+            $value = [];
+        }
+        $cicle1 = new Cicle(1,'DAM','Desenvolupament Aplicacions Multiplataforma');
+        array_push($value, $cicle1);
+        $request->session()->put('cicle', $value);
+        return view('cicles.index', compact('value'));
     }
     //Mètode create
     public function create()
@@ -37,15 +44,13 @@ class CicleController extends Controller
         # code...
     }
     //Mètode store
-    public function destroy(Request $request)
+    public function destroy(Request $request,$id)
     {
         $value = $request->session()->get('cicle');
-        $id = $request->input('id');
-        foreach($value as $k => $v) {
-            if($v == $id)
-              unset($_SESSION['cicle'][$k]);
-          }
-          $request->session()->put('cicle', $value);
+        array_splice($value,$id,1);
+        $request->session()->put('cicle', $value);
+        $response = redirect()->action([CicleController::class,'index']);
+        return $response;
         # code...
     }
 

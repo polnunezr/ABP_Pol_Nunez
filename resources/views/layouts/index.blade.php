@@ -24,7 +24,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/ABP_Pol_Nunez/public/cursos">Cursos</a>
-                <a class="dropdown-item" href="/ABP_Pol_Nunez/public/cicles">Cicles</a>
+                <a class="dropdown-item" href=" {{ url ('/cicles')}} ">Cicles</a>
 
               </div>
             </li>
